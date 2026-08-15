@@ -1,8 +1,12 @@
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Delimap - Mapa de Comida en Sarapiquí</title>  <style>
+
+  <title>Delimap - Mapa de Comida en Sarapiquí</title>
+
+  <style>
     * {
       margin: 0;
       padding: 0;
@@ -98,11 +102,19 @@
     .btn {
       display: inline-block;
       margin-top: 10px;
+      margin-right: 5px;
       background-color: #1f7a1f;
       color: white;
       padding: 10px 15px;
       border-radius: 5px;
       text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn:hover {
+      background-color: #145214;
     }
 
     .mapa {
@@ -125,106 +137,1827 @@
       margin-top: 40px;
     }
 
+    /* =========================
+       VENTANA DEL MENÚ
+       ========================= */
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      padding-top: 60px;
+    }
+
+    .modal-contenido {
+      background-color: white;
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+      margin: auto;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    .modal-contenido h2 {
+      color: #1f7a1f;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-contenido h3 {
+      color: #145214;
+      margin-top: 15px;
+      margin-bottom: 10px;
+    }
+
+    .plato {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f1f1f1;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 6px;
+    }
+
+    .descripcion-menu {
+  font-size: 13px;
+  color: #666;
+  margin: -3px 0 10px 5px;
+  line-height: 1.4;
+    }
+
+    .precio {
+      font-weight: bold;
+      color: #1f7a1f;
+    }
+
+    .cerrar {
+      position: absolute;
+      right: 18px;
+      top: 10px;
+      font-size: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #555;
+    }
+
+    .cerrar:hover {
+      color: red;
+    }
+
     @media (max-width: 768px) {
       .hero h2 {
         font-size: 24px;
       }
+
+      .btn {
+        padding: 9px 10px;
+        font-size: 13px;
+      }
     }
-  </style></head>
-<body>  <header>
+  </style>
+</head>
+
+<body>
+
+  <!-- ENCABEZADO -->
+
+  <header>
     <h1>Delimap</h1>
     <p>Mapa de comida y turismo en Sarapiquí</p>
-  </header>  <nav>
+  </header>
+
+  <!-- MENÚ DE NAVEGACIÓN -->
+
+  <nav>
     <a href="#inicio">Inicio</a>
     <a href="#restaurantes">Locales</a>
     <a href="#mapa">Mapa</a>
-  </nav>  <section class="hero" id="inicio">
+  </nav>
+
+  <!-- PRESENTACIÓN -->
+
+  <section class="hero" id="inicio">
     <h2>Encuentra los mejores lugares de comida en Sarapiquí</h2>
-    <p>Conoce menús, precios, horarios y ubicaciones de restaurantes y sodas.</p>
-  </section>  <div class="container"><h2 class="titulo-seccion" id="restaurantes">Locales Destacados</h2>
+    <p>
+      Conoce menús, precios, horarios y ubicaciones de restaurantes y sodas.
+    </p>
+  </section>
 
-<div class="restaurantes">
+  <div class="container">
 
-  <div class="card">
-    <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlt3GCKLNWGqnzwGqP33MhLuqHc87m0rl4fGFDmH8Kr66bP3USkfcks18gaAQmA_Ell2x8oCNXm4LTBkVtITx6MkstZy_7-TED2we_hEGIitxzNiwhbIAT6k2zgmAn_qxIrIF96=s1360-w1360-h1020-rw">
-    <div class="card-content">
-        <h3>Soda La Casita Típica</h3>
-        <p><strong>Horario:</strong> 6:00 AM - 7:00 PM</p>
-        <p><strong>Especialidad:</strong> Comida típica costarricense</p>
-        <p><strong>Ubicación:</strong> Puerto Viejo de Sarapiquí</p>
-        <a class="btn" href="https://maps.google.com/?q=Soda+La+Casita+Tipica+Sarapiqui" target="_blank">Ver ubicación</a>
+    <!-- LOCALES -->
+
+    <h2 class="titulo-seccion" id="restaurantes">
+      Locales Destacados
+    </h2>
+
+    <div class="restaurantes">
+
+      <!-- SODA LA CASITA -->
+
+      <div class="card">
+
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlt3GCKLNWGqnzwGqP33MhLuqHc87m0rl4fGFDmH8Kr66bP3USkfcks18gaAQmA_Ell2x8oCNXm4LTBkVtITx6MkstZy_7-TED2we_hEGIitxzNiwhbIAT6k2zgmAn_qxIrIF96=s1360-w1360-h1020-rw">
+
+        <div class="card-content">
+
+          <h3>Soda La Casita Típica</h3>
+
+          <p><strong>Horario:</strong> 6:00 AM - 7:00 PM</p>
+
+          <p>
+            <strong>Teléfono:</strong>
+            2766-6913
+          </p>
+
+          <p>
+            <strong>Especialidad:</strong>
+            Comida típica costarricense
+          </p>
+
+          <p>
+            <strong>¿Tiene Servicio de Hospedaje?</strong>
+            No
+          </p>
+
+          <p>
+            <strong>Ubicación:</strong>
+            Puerto Viejo de Sarapiquí
+          </p>
+
+          <a class="btn"
+             href="https://maps.google.com/?q=Soda+La+Casita+Tipica+Sarapiqui"
+             target="_blank">
+             Ver ubicación
+          </a>
+
+          <button class="btn" onclick="mostrarMenu('casita')">
+            Ver menú
+          </button>
+
+        </div>
+      </div>
+
+
+      <!-- SODA EL KORA -->
+
+      <div class="card">
+
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn9icqrxau3KyKSItDVWm-Yx_R3ardDp1AsxFFiIo71QeWR2b-IOQwMSWFJodkgLJ8aFzpsLr2vGb3E04xm-f1GjToQOX34QAPywgJozAN-qgL5NY1uV4Rn6VblzGxOPXmGtbGP_VdWg_fR=s1360-w1360-h1020-rw">
+
+        <div class="card-content">
+
+          <h3>Soda El Kora</h3>
+
+          <p><strong>Horario:</strong> 8:00 AM - 8:00 PM</p>
+
+          <p>
+            <strong>Teléfono:</strong>
+            8562-5235
+          </p>
+
+          <p>
+            <strong>Especialidad:</strong>
+            Comida típica y mexicana
+          </p>
+
+          <p>
+            <strong>¿Tiene Servicio de Hospedaje?</strong>
+            No
+          </p>
+
+          <p>
+            <strong>Ubicación:</strong>
+            La Virgen de Sarapiquí
+          </p>
+
+          <a class="btn"
+             href="https://maps.google.com/?q=Soda+El+Kora+Sarapiqui"
+             target="_blank">
+             Ver ubicación
+           </a>
+
+          <button class="btn" onclick="mostrarMenu('kora')">
+            Ver menú
+          </button>
+
+        </div>
+      </div>
+
+
+      <!-- PALMITOUR -->
+
+      <div class="card">
+
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk9A136si-x8YWCCwDGhLG7RcUPkn-iAoOfL0vin4bhnoSWt8-v29-6HffQuJ_w42nRyBwmjv8LVhICFE-kGBzv_7KbMI1dc8U8Kmqw_7CinQy229r0UUHcbmg6ghLIuQcCtWUVBw=s1360-w1360-h1020-rw">
+
+        <div class="card-content">
+
+          <h3>Restaurante Palmitour</h3>
+
+          <p><strong>Horario:</strong> 7:00 AM - 5:00 PM</p>
+
+          <p>
+            <strong>Teléfono:</strong>
+            8880-4737
+          </p>
+
+          <p>
+            <strong>Especialidad:</strong>
+            Platillos con palmito
+          </p>
+
+          <p>
+            <strong>¿Tiene Servicio de Hospedaje?</strong>
+            No
+          </p>
+
+          <p>
+            <strong>Ubicación:</strong>
+            Puerto Viejo de Sarapiquí
+          </p>
+
+          <a class="btn"
+             href="https://maps.google.com/?q=Palmitour+Sarapiqui"
+             target="_blank">
+             Ver ubicación
+          </a>
+
+          <button class="btn" onclick="mostrarMenu('palmitour')">
+            Ver menú
+          </button>
+
+        </div>
+      </div>
+
+
+      <!-- CUEVA DEL MARISCO -->
+
+      <div class="card">
+
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkG3gDNO862K52h-ommhiheO2NpFqkgYoLGl0HPYAYlSoP3c1Dt6EyiJG166lqxO6tFmogrPuozmaobMNvyAJxi6YEgeykxI9DzXB8hV2xzQsmOB2vGqbzj2mLvsoJy3G1oPkYYUw=s1360-w1360-h1020-rw">
+
+        <div class="card-content">
+
+          <h3>La Cueva del Marisco</h3>
+
+          <p><strong>Horario:</strong> 11:00 AM - 8:00 PM</p>
+
+          <p>
+            <strong>Teléfono:</strong>
+            2766-6633
+          </p>
+
+          <p>
+            <strong>Especialidad:</strong>
+            Mariscos
+          </p>
+
+          <p>
+            <strong>¿Tiene Servicio de Hospedaje?</strong>
+            No
+          </p>
+
+          <p>
+            <strong>Ubicación:</strong>
+            Puerto Viejo de Sarapiquí
+          </p>
+
+          <a class="btn"
+             href="https://maps.google.com/?q=La+Cueva+del+Marisco+Sarapiqui"
+             target="_blank">
+             Ver ubicación
+          </a>
+
+          <button class="btn" onclick="mostrarMenu('marisco')">
+            Ver menú
+          </button>
+
+        </div>
+      </div>
+
+
+      <!-- RESTAURANTE EL BAMBU -->
+
+      <div class="card">
+
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/33/05/b0/ca/caption.jpg?w=1200&h=1200&s=1">
+
+        <div class="card-content">
+
+          <h3>Restaurante El Bambú</h3>
+
+          <p><strong>Horario:</strong> 6:00 AM - 10:00 PM</p>
+
+          <p>
+            <strong>Teléfono:</strong>
+            2766-6005
+          </p>
+
+          <p>
+            <strong>Especialidad:</strong>
+            Comida costarricense
+          </p>
+
+          <p>
+            <strong>¿Tiene Servicio de Hospedaje?</strong>
+            Si
+          </p>
+
+          <p>
+            <strong>Ubicación:</strong>
+            Puerto Viejo de Sarapiquí
+          </p>
+
+          <a class="btn"
+             href="https://maps.google.com/?q=Restaurante+El+Bambu+Sarapiqui"
+             target="_blank">
+             Ver ubicación
+          </a>
+
+          <button class="btn" onclick="mostrarMenu('bambu')">
+            Ver menú
+          </button>
+
+        </div>
+      </div>
+
+
+      <!-- PIZZERIA EL TRONCO -->
+
+      <div class="card">
+
+        <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlLyaqQnzauhbGXMZGdLCCSJGqVMPv4CWLYTRjn03uQSsegiG0yxg5E9Gm_nNGvnATQiCb7_t4wG1_K9ny-FF4kFJI__LH8An_I5aaRBYQZZuB2Gm01TUSUoCkO9LPP87ddaWMT=s1360-w1360-h1020-rw">
+
+        <div class="card-content">
+
+          <h3>Pizzería El Tronco</h3>
+
+          <p><strong>Horario:</strong> 11:00 AM - 10:00 PM</p>
+
+          <p>
+            <strong>Teléfono:</strong>
+            8562-2229
+          </p>
+
+          <p>
+            <strong>Especialidad:</strong>
+            Pizza artesanal
+          </p>
+
+          <p>
+            <strong>¿Tiene Servicio de Hospedaje?</strong>
+            No
+          </p>
+
+          <p>
+            <strong>Ubicación:</strong>
+            Bajos de Chilamate
+          </p>
+
+          <a class="btn"
+             href="https://maps.google.com/?q=Pizzeria+El+Tronco+Sarapiqui"
+             target="_blank">
+             Ver ubicación
+          </a>
+
+          <button class="btn" onclick="mostrarMenu('tronco')">
+            Ver menú
+          </button>
+
+        </div>
+      </div>
+
     </div>
-    
-<div class="card">
-    <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn9icqrxau3KyKSItDVWm-Yx_R3ardDp1AsxFFiIo71QeWR2b-IOQwMSWFJodkgLJ8aFzpsLr2vGb3E04xm-f1GjToQOX34QAPywgJozAN-qgL5NY1uV4Rn6VblzGxOPXmGtbGP_VdWg_fR=s1360-w1360-h1020-rw">
-    <div class="card-content">
-        <h3>Soda El Kora</h3>
-        <p><strong>Horario:</strong> 8:00 AM - 8:00 PM</p>
-        <p><strong>Especialidad:</strong> Comida típica y mexicana</p>
-        <p><strong>Ubicación:</strong> La Virgen de Sarapiquí</p>
-        <a class="btn" href="https://maps.google.com/?q=Soda+El+Kora+Sarapiqui" target="_blank">Ver ubicación</a>
+
+
+    <!-- MAPA -->
+
+    <div class="mapa" id="mapa">
+
+      <h2 class="titulo-seccion">
+        Mapa de Sarapiquí
+      </h2>
+
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31442.33767337294!2d-84.016667!3d10.433333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa06b4dc4d4e0cf%3A0x9b1a6a9c1f7e3f4!2sSarapiqu%C3%AD%2C%20Costa%20Rica!5e0!3m2!1ses!2scr!4v1710000000000!5m2!1ses!2scr"
+        allowfullscreen=""
+        loading="lazy">
+      </iframe>
+
     </div>
-</div>
 
-<div class="card">
-    <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk9A136si-x8YWCCwDGhLG7RcUPkn-iAoOfL0vin4bhnoSWt8-v29-6HffQuJ_w42nRyBwmjv8LVhICFE-kGBzv_7KbMI1dc8U8Kmqw_7CinQy229r0UUHcbmg6ghLIuQcCtWUVBw=s1360-w1360-h1020-rw">
-    <div class="card-content">
-        <h3>Restaurante Palmitour</h3>
-        <p><strong>Horario:</strong> 7:00 AM - 5:00 PM</p>
-        <p><strong>Especialidad:</strong> Platillos con palmito</p>
-        <p><strong>Ubicación:</strong> Puerto Viejo de Sarapiquí</p>
-        <a class="btn" href="https://maps.google.com/?q=Palmitour+Sarapiqui" target="_blank">Ver ubicación</a>
+  </div>
+
+
+  <!-- VENTANA QUE MUESTRA EL MENÚ -->
+
+  <div id="ventanaMenu" class="modal">
+
+    <div class="modal-contenido">
+
+      <span class="cerrar" onclick="cerrarMenu()">
+        &times;
+      </span>
+
+      <h2 id="nombreMenu"></h2>
+
+      <div id="contenidoMenu"></div>
+
     </div>
-</div>
 
-<div class="card">
-    <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkG3gDNO862K52h-ommhiheO2NpFqkgYoLGl0HPYAYlSoP3c1Dt6EyiJG166lqxO6tFmogrPuozmaobMNvyAJxi6YEgeykxI9DzXB8hV2xzQsmOB2vGqbzj2mLvsoJy3G1oPkYYUw=s1360-w1360-h1020-rw">
-    <div class="card-content">
-        <h3>La Cueva del Marisco</h3>
-        <p><strong>Horario:</strong> 11:00 AM - 8:00 PM</p>
-        <p><strong>Especialidad:</strong> Mariscos</p>
-        <p><strong>Ubicación:</strong> Puerto Viejo de Sarapiquí</p>
-        <a class="btn" href="https://maps.google.com/?q=La+Cueva+del+Marisco+Sarapiqui" target="_blank">Ver ubicación</a>
-    </div>
-</div>
+  </div>
 
-<div class="card">
-    <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk2X96pn8A4e5A2fcCowI7wxsNrtzhiK1tQChhq47UvnoKCbpeIwTS8E0ozitX8KW4-3uZt61uiwUnkcyC40VmA1W9OUuBemHruSw0BqFaezoQjMefbs1UBHv3p9V2etyeKMA4=s1360-w1360-h1020-rw">
-    <div class="card-content">
-        <h3>Restaurante El Bambú</h3>
-        <p><strong>Horario:</strong> 6:00 AM - 10:00 PM</p>
-        <p><strong>Especialidad:</strong> Comida costarricense</p>
-        <p><strong>Ubicación:</strong> Puerto Viejo de Sarapiquí</p>
-        <a class="btn" href="https://maps.google.com/?q=Restaurante+El+Bambu+Sarapiqui" target="_blank">Ver ubicación</a>
-    </div>
-</div>
 
-<div class="card">
-    <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlLyaqQnzauhbGXMZGdLCCSJGqVMPv4CWLYTRjn03uQSsegiG0yxg5E9Gm_nNGvnATQiCb7_t4wG1_K9ny-FF4kFJI__LH8An_I5aaRBYQZZuB2Gm01TUSUoCkO9LPP87ddaWMT=s1360-w1360-h1020-rw">
-    <div class="card-content">
-        <h3>Pizzería El Tronco</h3>
-        <p><strong>Horario:</strong> 11:00 AM - 10:00 PM</p>
-        <p><strong>Especialidad:</strong> Pizza artesanal</p>
-        <p><strong>Ubicación:</strong> Bajos de Chilamate</p>
-        <a class="btn" href="https://maps.google.com/?q=Pizzeria+El+Tronco+Sarapiqui" target="_blank">Ver ubicación</a>
-    </div>
-</div>
+  <!-- PIE DE PÁGINA -->
 
-</div>
-
-<div class="mapa" id="mapa">
-  <h2 class="titulo-seccion">Mapa de Sarapiquí</h2>
-
-  <iframe 
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31442.33767337294!2d-84.016667!3d10.433333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa06b4dc4d4e0cf%3A0x9b1a6a9c1f7e3f4!2sSarapiqu%C3%AD%2C%20Costa%20Rica!5e0!3m2!1ses!2scr!4v1710000000000!5m2!1ses!2scr"
-    allowfullscreen=""
-    loading="lazy">
-  </iframe>
-</div>
-
-  </div>  <footer>
+  <footer>
     <p>© 2026 Delimap - Proyecto estudiantil</p>
-  </footer>  <script>
-    console.log('Página Delimap cargada correctamente');
-  </script></body>
+  </footer>
+
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+    function mostrarMenu(lugar) {
+
+      let nombre = "";
+      let menu = "";
+
+
+      /* SODA LA CASITA */
+
+      if (lugar === "casita") {
+
+  nombre = "Soda La Casita Típica";
+
+  menu = `
+
+    <h3> Desayunos</h3>
+
+    <div class="plato">
+      <span>Gallo Pinto con Huevo al Gusto y Café</span>
+      <span class="precio">₡2,800</span>
+    </div>
+
+    <div class="plato">
+      <span>Gallo Pinto con Chorizo o Salchichón y Café</span>
+      <span class="precio">₡2,800</span>
+    </div>
+
+    <div class="plato">
+      <span>Gallo Pinto con Carne en Salsa, Pollo en Salsa, Bistec o Chuleta y Café</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Gallo Pinto con Huevos Rancheros y Café</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Gallo Pinto con Omelette y Café</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Gallo de Queso</span>
+      <span class="precio">₡2,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Gallo de Salchichón o Chorizo</span>
+      <span class="precio">₡2,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Gallo de Carne o Pollo en Salsa</span>
+      <span class="precio">₡2,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Torta de Carne con Tortilla Casera</span>
+      <span class="precio">₡2,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Torta de Huevo con Tortilla Casera</span>
+      <span class="precio">₡1,300</span>
+    </div>
+
+
+    <h3>Casados</h3>
+
+    <div class="plato">
+      <span>Carne en Salsa con Refresco Natural</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Pollo en Salsa con Refresco Natural</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Bistec con Refresco Natural</span>
+      <span class="precio">₡3,200</span>
+    </div>
+
+    <div class="plato">
+      <span>Chuleta o Chuleta Ahumada con Refresco Natural</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Fajitas de Res con Refresco Natural</span>
+      <span class="precio">₡3,200</span>
+    </div>
+
+    <div class="plato">
+      <span>Fajitas a la Plancha con Refresco Natural</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Filete de Pescado con Refresco Natural</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Filete de Pollo con Refresco Natural</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Chorizo con Refresco Natural</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Chuleta Ahumada con Refresco Natural</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+
+    <h3> Sopas</h3>
+
+    <div class="plato">
+      <span>Sopa Ranchera</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Sopa de Pollo</span>
+      <span class="precio">₡2,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Sopa Negra</span>
+      <span class="precio">₡2,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Sopa Vegetariana</span>
+      <span class="precio">₡2,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Crema de Mariscos</span>
+      <span class="precio">₡3,200</span>
+    </div>
+
+
+    <h3> Platos Fuertes</h3>
+
+    <div class="plato">
+      <span>Filete de Pescado a la Plancha con Papas o Patacones y Ensalada</span>
+      <span class="precio">₡3.500</span>
+    </div>
+
+    <div class="plato">
+      <span>Filete de Pescado Empanizado con Papas o Patacones y Ensalada</span>
+      <span class="precio">₡3,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Filete de Pollo a la Plancha con Papas o Patacones y Ensalada</span>
+      <span class="precio">₡3,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Filete de Pollo Empanizado con Papas o Patacones y Ensalada</span>
+      <span class="precio">₡3,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Filete de Pollo con Arroz y Vegetales</span>
+      <span class="precio">₡3,700</span>
+    </div>
+
+    <div class="plato">
+      <span>Fajitas de Pollo a la Plancha con Papas o Patacones y Ensalada</span>
+      <span class="precio">₡3,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Fajitas de Pollo Empanizadas con Papas o Patacones y Ensalada</span>
+      <span class="precio">₡3,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Fajitas de Pescado Empanizadas con Papas o Patacones y Ensalada</span>
+      <span class="precio">₡3,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Arroz con Camarones con Papas o Patacones y Ensalada</span>
+      <span class="precio">₡3,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Arroz con Pollo con Papas o Patacones y Ensalada</span>
+      <span class="precio">₡3,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Arroz con Mariscos con Papas o Patacones y Ensalada</span>
+      <span class="precio">₡3,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Arroz Vegetariano</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+
+    <h3> Comidas Rápidas</h3>
+
+    <div class="plato">
+      <span>Sandwich de Pollo, Carne, Jamón y Queso</span>
+      <span class="precio">₡1,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Sandwich a la Casa</span>
+      <span class="precio">₡1,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Hamburguesa con Papas</span>
+      <span class="precio">₡2,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Queso Hamburguesa</span>
+      <span class="precio">₡2,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Polloburguesa</span>
+      <span class="precio">₡2,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Nachos de Carne o Pollo</span>
+      <span class="precio">₡2,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Nachos Mixtos</span>
+      <span class="precio">₡2,700</span>
+    </div>
+
+    <div class="plato">
+      <span>Taco de Carne o Pollo</span>
+      <span class="precio">₡2,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Taco Doble de Carne o Pollo</span>
+      <span class="precio">₡2,700</span>
+    </div>
+
+    <div class="plato">
+      <span>Taco Mixto de Carne o Pollo</span>
+      <span class="precio">₡2,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Chalupa de Carne o Pollo</span>
+      <span class="precio">₡1,700</span>
+    </div>
+
+    <div class="plato">
+      <span>Burro de Carne o Pollo</span>
+      <span class="precio">₡2,700</span>
+    </div>
+
+    <div class="plato">
+      <span>Chifrijo</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Papas Supremas</span>
+      <span class="precio">₡2,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Salchipapas</span>
+      <span class="precio">₡1,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Orden de Patacones</span>
+      <span class="precio">₡1,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Orden de Papas</span>
+      <span class="precio">₡1,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Patanachos</span>
+      <span class="precio">₡2,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Dados de Queso</span>
+      <span class="precio">₡1,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Quesadillas</span>
+      <span class="precio">₡1,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Empanada Suprema</span>
+      <span class="precio">₡1,500</span>
+    </div>
+
+
+    <h3> Bebidas Frías</h3>
+
+    <div class="plato">
+      <span>Refrescos Naturales</span>
+      <span class="precio">₡1,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Batido de Agua</span>
+      <span class="precio">₡1,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Batido de Leche</span>
+      <span class="precio">₡1,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Gaseosas</span>
+      <span class="precio">₡1,500</span>
+    </div>
+
+
+    <h3> Bebidas Calientes</h3>
+
+    <div class="plato">
+      <span>Café Negro</span>
+      <span class="precio">₡600</span>
+    </div>
+
+    <div class="plato">
+      <span>Café con Leche</span>
+      <span class="precio">₡800</span>
+    </div>
+
+    <div class="plato">
+      <span>Cappuccino</span>
+      <span class="precio">₡1,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Té Negro</span>
+      <span class="precio">₡800</span>
+    </div>
+
+    <div class="plato">
+      <span>Té de Menta</span>
+      <span class="precio">₡800</span>
+    </div>
+
+    <div class="plato">
+      <span>Té de Manzanilla</span>
+      <span class="precio">₡800</span>
+    </div>
+
+    <div class="plato">
+      <span>Agua Dulce</span>
+      <span class="precio">₡800</span>
+    </div>
+
+
+    <h3> Otros</h3>
+
+    <div class="plato">
+      <span>Empanadas de Carne, Pollo, Queso o Frijol</span>
+      <span class="precio">₡1,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Empanadas Arregladas de Pollo o Carne</span>
+      <span class="precio">₡1,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Tortilla Aliñada</span>
+      <span class="precio">₡1,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Empanadas de Gallo Pinto con Huevo o Queso</span>
+      <span class="precio">₡1,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Prensadas de Queso o Jamón y Queso</span>
+      <span class="precio">₡1,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Plátanos con Queso o Natilla</span>
+      <span class="precio">₡1,500</span>
+    </div>
+
+  `;
+}
+
+
+      /* SODA EL KORA */
+
+      if (lugar === "kora") {
+
+  nombre = "Soda El Kora";
+
+  menu = `
+
+    <h3> Almuerzos y Cena</h3>
+
+    <div class="plato">
+      <span>Enchiladas de Carne, Pollo, frijoles</span>
+      <span class="precio">₡4,000</span>
+    </div>
+
+    <div class="plato">
+      <span> Super Burro de Arroz y Frijoles, Queso y Natilla, Carne o Pollo</span>
+      <span class="precio">₡4,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Chilaquiles de Carne o Pollo</span>
+      <span class="precio">₡4,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Chilaquiles de Camarones</span>
+      <span class="precio">₡5,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Casados y Cantones</span>
+      <span class="precio">₡4,200</span>
+    </div>
+
+    <div class="plato">
+      <span>Sopa Azteca,Tacos</span>
+      <span class="precio">₡4,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Tacos de Pescado , Carne Asada, de Birria y al Pastor</span>
+      <span class="precio">₡5,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Tacos de Pollo</span>
+      <span class="precio">₡4,200</span>
+    </div>
+
+    <div class="plato">
+      <span>Chifrijo, Tostadas, Nachos </span>
+      <span class="precio">₡3,800</span>
+    </div>
+
+    <div class="plato">
+      <span>Huaraches</span>
+      <span class="precio">₡4,000</span>
+    </div>
+
+
+    <div class="plato">
+      <span>Arroz con Camarones</span>
+      <span class="precio">₡5,500</span>
+    </div>
+
+
+    <h3> Vegetariano</h3>
+
+    <div class="plato">
+      <span>Enchiladas Vegetarianas</span>
+      <span class="precio">₡4,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Burro Vegetariano</span>
+      <span class="precio">₡4,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Nachos Vegetarianos</span>
+      <span class="precio">₡4,300</span>
+    </div>
+
+    <div class="plato">
+      <span>Casado Vegetariano</span>
+      <span class="precio">₡4,200</span>
+    </div>
+
+
+    <h3> Hamburguesas y Más</h3>
+
+    <div class="plato">
+      <span>Hamburguesa Normal con Papas Fritas</span>
+      <span class="precio">₡3,200</span>
+    </div>
+
+    <div class="plato">
+      <span>Sandwich de Pollo</span>
+      <span class="precio">₡1,600</span>
+    </div>
+
+    <div class="plato">
+      <span>Sandwich de Carne</span>
+      <span class="precio">₡1,600</span>
+    </div>
+
+    <div class="plato">
+      <span>Empanadas de Pollo o Carne</span>
+      <span class="precio">₡1,600</span>
+    </div>
+
+    <div class="plato">
+      <span>Empanadas de Queso y Frijoles</span>
+      <span class="precio">₡1,600</span>
+    </div>
+
+    <h3>Para el Café y Desayunos</h3>
+
+    <div class="plato">
+      <span>Pinto con Huevo Kora</span>
+      <span class="precio">₡2,700</span>
+    </div>
+
+    <div class="plato">
+      <span>Pinto con Carne en Salsa</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Pinto con Salchichón</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+  `;
+}
+
+      /* PALMITOUR */
+
+      if (lugar === "palmitour") {
+
+  nombre = "Restaurante Palmitour";
+
+  menu = `
+
+    <h3> Delicias de Palmito</h3>
+
+    <div class="plato">
+      <span>Chorreadas de Palmito</span>
+      <span class="precio">₡2,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Ceviche de Palmito</span>
+      <span class="precio">₡5,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Lasaña de Palmito con Vegetales Salteados y Ensalada Verde</span>
+      <span class="precio">₡6,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Arroz con Palmito</span>
+      <span class="precio">₡6,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Picadillo de Palmito con Tortilla Casera</span>
+      <span class="precio">₡2,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Pan de Palmito - Porción</span>
+      <span class="precio">₡1,500</span>
+    </div>
+
+
+    <h3> Desayunos</h3>
+
+    <div class="plato">
+      <span>Desayuno Tico #1</span>
+      <span class="precio">₡3,800</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Gallo pinto con huevo (frito, ranchero, picado o torta),
+      plátanos maduros, queso o natilla y tostadas + café.
+    </p>
+
+    <div class="plato">
+      <span>Desayuno Tico #2</span>
+      <span class="precio">₡3,800</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Gallo pinto con huevo (frito, ranchero, picado o torta),
+      plátanos maduros, salchichón y tostadas + café.
+    </p>
+
+    <div class="plato">
+      <span>Desayuno Tico #3</span>
+      <span class="precio">₡3,800</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Gallo pinto con carne en salsa, plátanos maduros
+      y tostadas + café.
+    </p>
+
+    <div class="plato">
+      <span>Desayuno Americano #4</span>
+      <span class="precio">₡3,800</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Huevo al gusto, tostadas con mantequilla,
+      tocineta o salchicha de desayuno + café.
+    </p>
+
+    <div class="plato">
+      <span>Desayuno Americano #5</span>
+      <span class="precio">₡3,800</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Omelette + 2 acompañamientos + café.
+    </p>
+
+
+    <h3> Adicionales</h3>
+
+    <div class="plato">
+      <span>Tortilla Casera</span>
+      <span class="precio">₡800</span>
+    </div>
+
+    <div class="plato">
+      <span>Porción de Queso</span>
+      <span class="precio">₡600</span>
+    </div>
+
+    <div class="plato">
+      <span>Porción de Salchichón o Carne en Salsa</span>
+      <span class="precio">₡1,200</span>
+    </div>
+
+    <div class="plato">
+      <span>Huevos al Gusto</span>
+      <span class="precio">₡1,000</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Rancheros, revueltos o fritos.
+    </p>
+
+    <div class="plato">
+      <span>Natilla</span>
+      <span class="precio">₡500</span>
+    </div>
+
+
+    <h3> Antojos Ticos</h3>
+
+
+    <div class="plato">
+      <span>Empanadas</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Carne, pollo, frijoles o queso.
+    </p>
+
+    <div class="plato">
+      <span>Sándwich Simple</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Carne, pollo o jamón y queso.
+    </p>
+
+  `;
+}
+
+      /* LA CUEVA DEL MARISCO */
+
+      if (lugar === "marisco") {
+
+  nombre = "La Cueva del Marisco";
+
+  menu = `
+
+    <h3> Carnes</h3>
+
+    <div class="plato">
+      <span>Filete de Pollo a la Plancha</span>
+      <span class="precio">₡5,290</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Guarnecido con papas y ensalada.
+    </p>
+
+    <div class="plato">
+      <span>Deditos de Pollo</span>
+      <span class="precio">₡3,490</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Servidos con papas en gajos.
+    </p>
+
+    <div class="plato">
+      <span>Filete de Pollo a la Romana</span>
+      <span class="precio">₡5,250</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Servido en salsa de tomate natural y gratinado con queso tipo mozzarella.
+    </p>
+
+    <div class="plato">
+      <span>Gasparolli</span>
+      <span class="precio">₡5,250</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Filete de pollo preparado al vino blanco, aceituna,
+      mostaza, miel de abeja, limoncello y uchuvas.
+    </p>
+
+    <div class="plato">
+      <span>Filete Mignon</span>
+      <span class="precio">₡9,950</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Corte de carne de res de 250 g, rodeado de tocineta
+      y bañado con salsa al gusto: pimienta, hongos o jalapeño.
+    </p>
+
+    <div class="plato">
+      <span>Lomito</span>
+      <span class="precio">₡9,250</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Corte de carne de res con salsa al gusto,
+      papa salteada con aderezo y vegetales.
+    </p>
+
+
+    <h3>Especialidades de La Cueva</h3>
+
+    <div class="plato">
+      <span>Salmón de La Cueva</span>
+      <span class="precio">₡11,500</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Filete acompañado con mejillones 1/2 concha
+      y camarones jumbo a la parrilla.
+    </p>
+
+    <div class="plato">
+      <span>Filete de Atún</span>
+      <span class="precio">₡9,500</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Guarnecido con puré y vegetales en salsa meniere.
+    </p>
+
+    <div class="plato">
+      <span>Lomito Mar y Tierra</span>
+      <span class="precio">₡22,500</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Jugoso lomito acompañado de cola de langosta
+      y camarones jumbo con salsa de hongos.
+    </p>
+
+
+    <h3> Pasta de La Cueva</h3>
+
+    <div class="plato">
+      <span>Pasta de 7 Mares</span>
+      <span class="precio">₡6,950</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Mariscos en salsa de tomate natural mezclados
+      con espagueti de sémola de trigo o harina de arroz.
+    </p>
+
+    <div class="plato">
+      <span>Pasta en Salsa Blanca con Camarones</span>
+      <span class="precio">₡6,950</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Preparada con un toque de vino blanco
+      y pan ciabatta con ajo.
+    </p>
+
+    <div class="plato">
+      <span>Pasta de los Cuatro Quesos</span>
+      <span class="precio">₡7,450</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Salsa preparada con queso gruyere, gouda,
+      mozzarella y grana padano.
+    </p>
+
+    <div class="plato">
+      <span>Espagueti de Arroz Campo di Fiore</span>
+      <span class="precio">₡5,850</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Pasta de arroz salteada con vegetales frescos,
+      aceite de oliva y trufa.
+    </p>
+
+
+    <h3> Mariscos</h3>
+
+    <div class="plato">
+      <span>Arroz con Camarones</span>
+      <span class="precio">₡4,500</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Acompañado con ensalada verde y papas en gajos.
+    </p>
+
+    <div class="plato">
+      <span>Arroz con Mariscos</span>
+      <span class="precio">₡5,500</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Acompañado con ensalada verde y papas en gajos.
+    </p>
+
+    <div class="plato">
+      <span>Arroz con Pollo</span>
+      <span class="precio">4,000</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Acompañado con ensalada verde y papas en gajos.
+    </p>
+
+    <div class="plato">
+      <span>Filete de Corvina Empanizado</span>
+      <span class="precio">₡6,800</span>
+    </div>
+
+    <div class="plato">
+      <span>Deditos de Pescado</span>
+      <span class="precio">₡3,950</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Servidos con deliciosas papas en gajos.
+    </p>
+
+    <div class="plato">
+      <span>Camarones al Ajillo</span>
+      <span class="precio">₡8,500</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Guarnecidos con puré y vegetales.
+    </p>
+
+    <div class="plato">
+      <span>Camarones al Estilo Thai</span>
+      <span class="precio">₡7,980</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Verduras y camarones en salsa de ostiones,
+      servidos con arroz blanco.
+    </p>
+
+  `;
+}
+
+
+      /* EL BAMBU */
+
+      if (lugar === "bambu") {
+
+  nombre = "Restaurante El Bambú";
+
+  menu = `
+
+    <h3> Arroces</h3>
+
+    <div class="plato">
+      <span>Arroz con Pollo</span>
+      <span class="precio">₡4,500</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Con papas fritas y ensalada.
+    </p>
+
+    <div class="plato">
+      <span>Arroz con Camarones</span>
+      <span class="precio">₡6,500</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Con papas fritas y ensalada.
+    </p>
+
+    <div class="plato">
+      <span>Arroz con Mariscos</span>
+      <span class="precio">₡7,800</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Con papas fritas y ensalada.
+    </p>
+
+    <div class="plato">
+      <span>Arroz con Palmito</span>
+      <span class="precio">₡5,000</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Con papas fritas y ensalada.
+    </p>
+
+    <div class="plato">
+      <span>Arroz con Lomo</span>
+      <span class="precio">₡5,750</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Con papas fritas y ensalada.
+    </p>
+
+    <div class="plato">
+      <span>Arroz con Cerdo</span>
+      <span class="precio">₡5,200</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Con papas fritas y ensalada.
+    </p>
+
+
+    <h3> Rincón Típico</h3>
+
+    <div class="plato">
+      <span>Casado con Pollo, Pescado, Lomo o Cerdo</span>
+      <span class="precio">₡4,850</span>
+    </div>
+
+    <p class="descripcion-menu">
+      Arroz, vegetales, ensalada, frijoles y plátano.
+    </p>
+
+    <div class="plato">
+      <span>Rice and Beans con Pollo, Pescado o Costilla</span>
+      <span class="precio">₡6,250</span>
+    </div>
+
+
+    <h3> Menú de Niños</h3>
+
+    <div class="plato">
+      <span>Salchipapas</span>
+      <span class="precio">₡3,600</span>
+    </div>
+
+    <div class="plato">
+      <span>Dedos de Pollo</span>
+      <span class="precio">₡3,750</span>
+    </div>
+
+    <div class="plato">
+      <span>Dedos de Pescado</span>
+      <span class="precio">₡3,900</span>
+    </div>
+
+    <div class="plato">
+      <span>Quesohamburguesa</span>
+      <span class="precio">₡3,700</span>
+    </div>
+
+    <div class="plato">
+      <span>Papas Fritas</span>
+      <span class="precio">₡1,650</span>
+    </div>
+
+    <div class="plato">
+      <span>Hot Dog</span>
+      <span class="precio">₡2,750</span>
+    </div>
+
+
+    <h3> Antojitos / Snacks</h3>
+
+    <div class="plato">
+      <span>Hamburguesa Bambú</span>
+      <span class="precio">₡5,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Hamburguesa Bambú de Pollo</span>
+      <span class="precio">₡</span>
+      <span class="precio">5,250</span>
+    </div>
+
+    <div class="plato">
+      <span>Fajitas de Pollo Empanizadas</span>
+      <span class="precio">₡6,650</span>
+    </div>
+
+    <div class="plato">
+      <span>Plato de Chicharrón</span>
+      <span class="precio">₡5,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Plátano Entero con Queso</span>
+      <span class="precio">₡1,850</span>
+    </div>
+
+    <div class="plato">
+      <span>Panini de Pollo</span>
+      <span class="precio">₡5,100</span>
+    </div>
+
+    <div class="plato">
+      <span>Panini de Jamón y Queso</span>
+      <span class="precio">₡5,100</span>
+    </div>
+
+    <div class="plato">
+      <span>Panini Caprese</span>
+      <span class="precio">₡4,400</span>
+    </div>
+
+
+    <h3>Postres</h3>
+
+    <div class="plato">
+      <span>Flan de Coco</span>
+      <span class="precio">₡2,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Flan de Queso</span>
+      <span class="precio">₡2,100</span>
+    </div>
+
+    <div class="plato">
+      <span>Cheesecake de Fresa</span>
+      <span class="precio">₡2,250</span>
+    </div>
+
+    <div class="plato">
+      <span>Crepa Rellena con Helado</span>
+      <span class="precio">₡2,200</span>
+    </div>
+
+    <div class="plato">
+      <span>Copa de Helado con Topping</span>
+      <span class="precio">₡1,900</span>
+    </div>
+
+  `;
+}
+
+
+      /* PIZZERIA EL TRONCO */
+
+      if (lugar === "tronco") {
+
+  nombre = "Pizzería El Tronco";
+
+  menu = `
+
+    <h3> Pizzas</h3>
+
+    <p class="descripcion-menu">
+      Tamaños: Personal (P), Pequeña (Pe), Mediana (M), Grande (G) y Familiar (F).
+    </p>
+
+    <div class="plato">
+      <span>Suprema<br>
+      <small>Jamón, carne, queso, cebolla y chile dulce.</small></span>
+      <span class="precio">
+        P: ₡3,500<br>
+        Pe: ₡7,500<br>
+        M: ₡8,500<br>
+        G: ₡10,000<br>
+        F: ₡12,000
+      </span>
+    </div>
+
+    <div class="plato">
+      <span>Cinco Carnes<br>
+      <small>Hongos, jamón, carne, peperoni, salami y tocineta.</small></span>
+      <span class="precio">
+        P: ₡3,500<br>
+        Pe: ₡7,500<br>
+        M: ₡8,500<br>
+        G: ₡10,000<br>
+        F: ₡12,000
+      </span>
+    </div>
+
+    <div class="plato">
+      <span>Tocineta<br>
+      <small>Tocineta, queso, cebolla y chile dulce.</small></span>
+      <span class="precio">
+        P: ₡3,500<br>
+        Pe: ₡7,000<br>
+        M: ₡8,000<br>
+        G: ₡10,000<br>
+        F: ₡11,000
+      </span>
+    </div>
+
+    <div class="plato">
+      <span>Jamón y Queso<br>
+      <small>Jamón y queso.</small></span>
+      <span class="precio">
+        P: ₡3,500<br>
+        Pe: ₡7,000<br>
+        M: ₡8,000<br>
+        G: ₡10,000<br>
+        F: ₡11,000
+      </span>
+    </div>
+
+    <div class="plato">
+      <span>Hongonada<br>
+      <small>Jamón, hongos y queso.</small></span>
+      <span class="precio">
+        P: ₡3,500<br>
+        Pe: ₡7,500<br>
+        M: ₡8,500<br>
+        G: ₡10,000<br>
+        F: ₡11,000
+      </span>
+    </div>
+
+    <div class="plato">
+      <span>Vegetariana<br>
+      <small>Especies, cebolla, tomate, chile dulce, hongos y queso.</small></span>
+      <span class="precio">
+        P: ₡3,500<br>
+        Pe: ₡7,500<br>
+        M: ₡8,500<br>
+        G: ₡10,000<br>
+        F: ₡12,000
+      </span>
+    </div>
+
+    <div class="plato">
+      <span>Brasileña<br>
+      <small>Jamón, carne, tomate y queso.</small></span>
+      <span class="precio">
+        P: ₡3,500<br>
+        Pe: ₡7,500<br>
+        M: ₡8,500<br>
+        G: ₡10,000<br>
+        F: ₡11,000
+      </span>
+    </div>
+
+    <div class="plato">
+      <span>Mexicana<br>
+      <small>Jalapeño, carne, queso, tomate, cebolla y chile dulce.</small></span>
+      <span class="precio">
+        P: ₡3,500<br>
+        Pe: ₡7,500<br>
+        M: ₡8,500<br>
+        G: ₡10,000<br>
+        F: ₡12,000
+      </span>
+    </div>
+
+    <div class="plato">
+      <span>Hawaiana<br>
+      <small>Jamón, piña y queso.</small></span>
+      <span class="precio">
+        P: ₡3,500<br>
+        Pe: ₡7,500<br>
+        M: ₡8,500<br>
+        G: ₡10,000<br>
+        F: ₡11,000
+      </span>
+    </div>
+
+    <div class="plato">
+      <span>Peperoni<br>
+      <small>Peperoni y queso.</small></span>
+      <span class="precio">
+        P: ₡3,500<br>
+        Pe: ₡7,000<br>
+        M: ₡8,000<br>
+        G: ₡9,500<br>
+        F: ₡11,000
+      </span>
+    </div>
+
+    <div class="plato">
+      <span>Salami<br>
+      <small>Salami y queso.</small></span>
+      <span class="precio">
+        P: ₡3,000<br>
+        Pe: ₡7,000<br>
+        M: ₡8,000<br>
+        G: ₡9,300<br>
+        F: ₡11,000
+      </span>
+    </div>
+
+    <div class="plato">
+      <span>Mozzarella<br>
+      <small>Queso mozzarella.</small></span>
+      <span class="precio">
+        P: ₡3,000<br>
+        Pe: ₡7,000<br>
+        M: ₡8,000<br>
+        G: ₡10,000<br>
+        F: ₡11,000
+      </span>
+    </div>
+
+    <div class="plato">
+      <span>Tropical<br>
+      <small>Peperoni, salami, jamón, queso, hongos, cebolla y chile dulce.</small></span>
+      <span class="precio">
+        P: ₡3,500<br>
+        Pe: ₡8,000<br>
+        M: ₡9,000<br>
+        G: ₡11,000<br>
+        F: ₡12,000
+      </span>
+    </div>
+
+    <div class="plato">
+      <span>Especial de la Casa<br>
+      <small>Peperoni, queso, carne, hongos, cebolla, chile dulce y frijoles molidos.</small></span>
+      <span class="precio">
+        P: ₡3,500<br>
+        Pe: ₡7,500<br>
+        M: ₡8,500<br>
+        G: ₡10,000<br>
+        F: ₡12,000
+      </span>
+    </div>
+
+
+    <h3> Entradas</h3>
+
+    <div class="plato">
+      <span>Pan con Ajo</span>
+      <span class="precio">₡1,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Brocheta</span>
+      <span class="precio">₡2,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Sandwich de Salami</span>
+      <span class="precio">₡2,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Sandwich de Peperoni</span>
+      <span class="precio">₡2,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Sandwich de la Casa</span>
+      <span class="precio">₡2,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Sandwich de Jamón y Queso</span>
+      <span class="precio">₡2,500</span>
+    </div>
+
+    <div class="plato">
+      <span>Hamburguesa</span>
+      <span class="precio">₡3,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Calzone Suprema</span>
+      <span class="precio">₡4,000</span>
+    </div>
+
+    <div class="plato">
+      <span>Calzone de Jamón y Queso</span>
+      <span class="precio">₡4,000</span>
+    </div>
+
+  `;
+}
+
+
+      document.getElementById("nombreMenu").innerHTML = nombre;
+
+      document.getElementById("contenidoMenu").innerHTML = menu;
+
+      document.getElementById("ventanaMenu").style.display = "block";
+    }
+
+
+    function cerrarMenu() {
+
+      document.getElementById("ventanaMenu").style.display = "none";
+
+    }
+
+
+    /* Cerrar el menú al tocar fuera de la ventana */
+
+    window.onclick = function(event) {
+
+      let ventana = document.getElementById("ventanaMenu");
+
+      if (event.target === ventana) {
+
+        cerrarMenu();
+
+      }
+
+    }
+
+
+    console.log("Página Delimap cargada correctamente");
+
+  </script>
+
+</body>
 </html>
